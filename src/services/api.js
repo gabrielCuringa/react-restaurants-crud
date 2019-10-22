@@ -51,3 +51,20 @@ export function put(url, body) {
       });
   });
 }
+
+export function del(url, body) {
+  return new Promise((resolve, reject) => {
+    fetch(BASE_URL + url, {
+      method: "delete"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        return resolve(json);
+      })
+      .catch(error => {
+        return reject(error);
+      });
+  });
+}

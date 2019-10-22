@@ -1,6 +1,5 @@
 import React from "react";
 import Restaurant from "./Restaurant";
-import * as restaurantsApi from "../services/RestaurantsApi.js";
 import { Grid, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
@@ -51,31 +50,21 @@ class Restaurants extends React.Component {
     };
   }
 
-  async getRestaurants(page) {
-    const restaurants = await restaurantsApi.getRestaurants(page);
-    console.log(restaurants);
-    this.setState({
-      restaurants: restaurants.data,
-      nbOfRestaurants: restaurants.count,
-      pageCount: Math.ceil(restaurants.count / this.state.restaurantsPerPage)
-    });
-  }
-
-  componentDidMount() {
-    this.getRestaurants(0);
-  }
-
-  componentDidUpdate(previousProps, previousState) {
-    if (previousProps.reload != this.props.reload) {
-      if (this.props.reload) {
-        this.getRestaurants(0);
-      }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.restaurants !== this.props.restaurants) {
+      this.setState({
+        restaurants: this.props.restaurants.data,
+        nbOfRestaurants: this.props.restaurants.count,
+        pageCount: Math.ceil(
+          this.props.restaurants.count / this.state.restaurantsPerPage
+        )
+      });
     }
   }
 
   handlePageChanged = data => {
     let selected = data.selected;
-    this.getRestaurants(selected);
+    this.props.handleLoadData(selected);
   };
 
   render() {
@@ -84,6 +73,7 @@ class Restaurants extends React.Component {
         <Grid className="grid" item xs={4} key={el._id}>
           <Restaurant
             restaurant={el}
+            handleLoadData={async () => this.props.handleLoadData()}
             toggleEditDialog={() => this.props.toggleEditDialog()}
             handleEditDialog={restaurantSelected => {
               this.props.handleEditDialog(restaurantSelected);

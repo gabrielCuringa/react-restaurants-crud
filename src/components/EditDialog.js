@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as restaurantsApi from "../services/RestaurantsApi.js";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -131,7 +130,8 @@ class EditDialog extends React.Component {
           <Button
             onClick={async () => {
               await this.updateRestaurant();
-              this.props.handleClose(true);
+              await this.props.handleLoadData();
+              this.props.handleClose();
             }}
             color="primary"
           >

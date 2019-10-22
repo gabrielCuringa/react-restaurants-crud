@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import AddDialog from "./components/AddDialog";
 import EditDialog from "./components/EditDialog";
+import * as restaurantsApi from "./services/RestaurantsApi";
 
 class App extends React.Component {
   constructor(props) {
@@ -19,8 +20,20 @@ class App extends React.Component {
       isAddDialogVisible: false,
       isEditDialogVisible: false,
       restaurantToEdit: {},
-      restaurants: {}
+      restaurants: []
     };
+  }
+
+  async getRestaurants(page) {
+    const restaurants = await restaurantsApi.getRestaurants(page);
+    console.log(restaurants);
+    this.setState({
+      restaurants: restaurants
+    });
+  }
+
+  componentDidMount() {
+    this.getRestaurants(0);
   }
 
   toggleAddDialog() {
@@ -30,7 +43,7 @@ class App extends React.Component {
     });
   }
 
-  toggleEditDialog(reload) {
+  toggleEditDialog() {
     let dialogVisible = this.state.isEditDialogVisible;
     this.setState({
       isEditDialogVisible: !dialogVisible
@@ -56,6 +69,8 @@ class App extends React.Component {
                 <h2>React-Restaurants CRUD</h2>
               </div>
               <Restaurants
+                restaurants={this.state.restaurants}
+                handleLoadData={async page => await this.getRestaurants(page)}
                 toggleAddDialog={() => {
                   this.toggleAddDialog();
                 }}
@@ -84,8 +99,9 @@ class App extends React.Component {
           />
           <EditDialog
             isVisible={this.state.isEditDialogVisible}
-            handleClose={reload => {
-              this.toggleEditDialog(reload);
+            handleLoadData={async () => await this.getRestaurants(0)}
+            handleClose={() => {
+              this.toggleEditDialog();
             }}
             restaurantToEdit={this.state.restaurantToEdit}
           />

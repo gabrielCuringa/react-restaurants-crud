@@ -7,18 +7,22 @@ import "../styles/restaurant.css";
 class RestaurantDetail extends React.Component {
   render() {
     const data = this.props.location.state;
-    // const defaultProps = {
-    //   center: {
-    //     lat: data.restaurant.address.coord[0],
-    //     lng: data.restaurant.address.coord[1]
-    //   },
-    //   zoom: 11
-    // };
-
+    console.log(data);
+    const grades = data.grades.map((el, index) => {
+      let formattedDate = new Date(el.date);
+      return (
+        <li key={index}>
+          {formattedDate.toDateString()} | {el.grade}, {el.score}
+        </li>
+      );
+    });
     return (
       <div>
-        <h1>{data.restaurant.name}</h1>
-        <h2>{data.restaurant.cuisine}</h2>
+        <h1>{data.name}</h1>
+        <h2>{data.cuisine}</h2>
+        <h3>{data.borough}</h3>
+        <h3>Notes</h3>
+        <ul>{grades}</ul>
       </div>
     );
   }

@@ -33,3 +33,14 @@ export async function updateRestaurant(id, formData) {
   }
   return result;
 }
+
+export async function deleteRestaurant(id) {
+  console.log("dans delete restaurant");
+  let result = {};
+  try {
+    result = await api.del("/api/restaurants/" + id);
+  } catch (e) {
+    throw e;
+  }
+  return result;
+}

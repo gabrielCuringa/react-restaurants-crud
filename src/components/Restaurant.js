@@ -10,12 +10,9 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import "../styles/restaurant.css";
+import * as restaurantsApi from "../services/RestaurantsApi";
 
 class Restaurant extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleUpdateButton() {
     this.props.handleEditDialog({
       id: this.props.restaurant._id,
@@ -25,6 +22,11 @@ class Restaurant extends React.Component {
     this.props.toggleEditDialog();
   }
 
+  async handleDeleteButton() {
+    await restaurantsApi.deleteRestaurant(this.props.restaurant._id);
+    await this.props.handleLoadData();
+  }
+
   render() {
     return (
       <Card className="card">
@@ -32,7 +34,7 @@ class Restaurant extends React.Component {
           <Link
             to={{
               pathname: "/restaurants/" + this.props.restaurant._id,
-              state: { ...this.props }
+              state: { ...this.props.restaurant }
             }}
           >
             <CardMedia
@@ -60,7 +62,13 @@ class Restaurant extends React.Component {
           >
             Modifier
           </Button>
-          <Button size="small" color="secondary">
+          <Button
+            size="small"
+            color="secondary"
+            onClick={async () => {
+              await this.handleDeleteButton();
+            }}
+          >
             Supprimer
           </Button>
         </CardActions>
