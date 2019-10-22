@@ -4,37 +4,43 @@ export async function getRestaurants(page, pagesize, name = "") {
   console.log("dans get restaurants");
   let result = {};
   try {
-    result = await api.get("/api/restaurants");
+    result = await api.get("/api/restaurants?page=" + page);
   } catch (e) {
     throw e;
   }
 
   return result;
-  // return Promise((resolve, reject) => {
-  //   let urlRestaurants =
-  //     "http://localhost:8080/api/restaurants?page=" +
-  //     page +
-  //     "&pagesize=" +
-  //     pagesize +
-  //     "&name=" +
-  //     name;
+}
 
-  //   fetch(urlRestaurants, {
-  //     method: "get"
-  //   })
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then(json => {
-  //       let returnData = {
-  //         msg: json.msg,
-  //         data: json.data,
-  //         count: json.count
-  //       };
-  //       resolve(returnData);
-  //     })
-  //     .catch(error => {
-  //       reject(error);
-  //     });
-  // });
+export async function addRestaurant(formData) {
+  console.log("dans post restaurant");
+  let result = {};
+  try {
+    result = await api.post("/api/restaurants", formData);
+  } catch (e) {
+    throw e;
+  }
+  return result;
+}
+
+export async function updateRestaurant(id, formData) {
+  console.log("dans put restaurant");
+  let result = {};
+  try {
+    result = await api.put("/api/restaurants/" + id, formData);
+  } catch (e) {
+    throw e;
+  }
+  return result;
+}
+
+export async function deleteRestaurant(id) {
+  console.log("dans delete restaurant");
+  let result = {};
+  try {
+    result = await api.del("/api/restaurants/" + id);
+  } catch (e) {
+    throw e;
+  }
+  return result;
 }

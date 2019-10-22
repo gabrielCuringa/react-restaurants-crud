@@ -1,0 +1,11 @@
+li {
+  list-style-type: none;
+}
+.card {
+  min-width: 275px;
+  min-width: 345px;
+}
+
+.card-media {
+  height: 100px;
+}
