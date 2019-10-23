@@ -1,15 +1,15 @@
 ETAPES À SUIVRE POUR LANCER LE PROJET
 
 1. lancer la BD
-    il faut importer la BD des restaurants dans mongodb
-    $ mongod
+- il faut importer la BD des restaurants dans mongodb
+- mongod
 2. lancer serveur CRUD
-  récupérer dépôt du serveur (correction d'un bug) : git clone https://github.com/gabrielCuringa/react-restaurants-api
-  npm install
-  node serverCrudWithMongo.js
+- récupérer dépôt du serveur (correction d'un bug) : git clone https://github.com/gabrielCuringa/react-restaurants-api
+- npm install
+- node serverCrudWithMongo.js
 3. lancer le front
-   npm install
-   npm start
+- npm install
+- npm start
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
