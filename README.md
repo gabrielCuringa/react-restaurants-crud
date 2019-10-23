@@ -1,8 +1,8 @@
 ETAPES À SUIVRE POUR LANCER LE PROJET
 
 1. dans un terminal : mongod
-2. à la racine du serveur CRUD : node serverCrudWithMongo.js
-3. à la racine du projet : npm start
+2. à la racine du serveur CRUD : npm install, puis node serverCrudWithMongo.js
+3. à la racine du projet : npm install, puis npm start
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
